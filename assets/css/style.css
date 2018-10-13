@@ -32,6 +32,11 @@ h2 {
     text-align: center;
 }
 
+.enemyChar {
+    background-color: red;
+    color: white;
+}
+
 img {
     width: 138px;
     height: 138px;
@@ -65,9 +70,9 @@ p {
 }
 
 #attack {
-    display: none;
+    visibility: hidden;
 }
 
 #reset {
-    display: none;
+    visibility: hidden;
 }

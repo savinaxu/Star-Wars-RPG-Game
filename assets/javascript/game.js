@@ -1,5 +1,7 @@
 (function ($) {
     let character;
+    let userChoice;
+
 
     //reset character
     function resetCharacter() {
@@ -38,12 +40,6 @@
         }
     }
 
-    //reset the game
-    function initial() {
-        resetCharacter()
-        showCharacter()
-    }
-
     //create character select section
     function createChar(char, charKey) {
         let charDiv = $("<div class='column center' data-name='" + charKey + "'>")
@@ -65,6 +61,32 @@
         }
     }
 
+    //disappear show charcter
+    function disappear() {
+        $(".choice").empty()
+        $("#characters").empty()
+    }
+
+    //show enemy charcter
+    function showEnemy(userChoice) {
+        let enemyCharArr = Object.keys(character)
+        for (let j = 0; j < enemyCharArr.length; j++) {
+            if (enemyCharArr[j] !== userChoice) {
+                let enemyCharKey = enemyCharArr[j]
+                let enemyChar = character[enemyCharKey]
+                let enemyDiv = createChar(enemyChar, enemyCharKey)
+                $(enemyDiv).addClass("enemyChar")
+                $("#enemies").append(enemyDiv)
+            }
+        }
+    }
+
+    //reset the game
+    function initial() {
+        resetCharacter()
+        showCharacter()
+    }
+    //call initial
     initial()
 
 
