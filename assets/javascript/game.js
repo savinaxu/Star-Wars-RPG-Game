@@ -1,5 +1,6 @@
 (function ($) {
     let character;
+    let game;
     let userChoice;
 
 
@@ -40,6 +41,16 @@
         }
     }
 
+    //reset the game status
+    function resetGame() {
+        game = {
+            userChoiceChar : null,
+            userChoiceEnemy : null,
+            enemiesLeft : 0,
+            numberClick : 0
+        }
+    }
+
     //create character select section
     function createChar(char, charKey) {
         let charDiv = $("<div class='column center' data-name='" + charKey + "'>")
@@ -49,6 +60,7 @@
         charDiv.append(charName).append(charImage).append(charHealth)
         return charDiv
     }
+
 
     //show character
     function showCharacter() {
@@ -65,6 +77,7 @@
     function disappear() {
         $(".choice").empty()
         $("#characters").empty()
+
     }
 
     //show enemy charcter
@@ -84,10 +97,55 @@
     //reset the game
     function initial() {
         resetCharacter()
+        resetGame()
         showCharacter()
     }
     //call initial
     initial()
+
+    //select attack enemy
+    $(".enemyChar").on("click.enemySelect",function() {
+        let userSelectedEnemy = $(this).attr('data-name')
+        game.userChoiceEnemy = character[userSelectedEnemy]
+        $("#defender").append(this)
+        $("#attack").show()
+        $("#enemies").off('click.enemySelect')
+    })
+
+    //attack
+    $("#attack").on("click.attack", function() {
+        game.numberClick++
+        game.userChoiceEnemy.health -= game.userChoiceChar.attack * game.numberClick
+        game.userChoiceChar.health -= game.userChoiceEnemy.enemyAttackBack
+
+        $("#")
+    })
+
+    
+
+    //defend
+    function defend() {
+
+    }
+
+    //checkHealth
+    function isDead(char) {
+        if (char.health <= 0) return true
+        else return false
+    }
+    //check enemy left
+    function isGameWon() {
+        if (game.enemiesLeft === 0) return true
+        else return false
+    }
+
+    //remove enemy
+
+    //select char
+
+
+
+    
 
 
 
