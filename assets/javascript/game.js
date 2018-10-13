@@ -28,26 +28,44 @@
                 enemyAttackBack: 15
             },
 
-            'stormtroop': {
-                name: "Stormtroop",
+            'stormtrooper': {
+                name: "Stormtrooper",
                 health: 180,
                 attack: 7,
-                imgUrl: 'assets/images/stormtroop.png',
+                imgUrl: 'assets/images/stormtrooper.png',
                 enemyAttackBack: 25
             }
-
         }
     }
 
+    //reset the game
+    function initial() {
+        resetCharacter()
+        showCharacter()
+    }
+
     //create character select section
-    function createChar(character, key) {
-        let charDiv = $("<div class='column center' data-name='" + key + "'>")
-        let charName = $("<div class='name'>").text(character.name)
-        let charImage = $("<img>").attr('src', character.imgUrl)
-        let charHealth = $("<p>").text(character.health)
+    function createChar(char, charKey) {
+        let charDiv = $("<div class='column center' data-name='" + charKey + "'>")
+        let charName = $("<div class='name'>").text(char.name)
+        let charImage = $("<img>").attr('src', char.imgUrl)
+        let charHealth = $("<p>").text(char.health)
         charDiv.append(charName).append(charImage).append(charHealth)
         return charDiv
     }
+
+    //show character
+    function showCharacter() {
+        let charArr = Object.keys(character)
+        for (let i = 0; i < charArr.length; i++) {
+            let charKey = charArr[i]
+            let char = character[charKey]
+            let charDiv = createChar(char, charKey)
+            $("#characters").append(charDiv)
+        }
+    }
+
+    initial()
 
 
 
