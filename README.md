@@ -1,10 +1,7 @@
 # Star-Wars-RPG-Game
 
-![Star Wars](Images/2-StarWars.jpg)
 
-1. [Watch the demo](https://youtu.be/klN2-ITjRt8).
-
-2. Here's how the app works:
+1. Here's how the app works:
 
    * When the game starts, the player will choose a character by clicking on the fighter's picture. The player will fight as that character for the rest of the game.
 
