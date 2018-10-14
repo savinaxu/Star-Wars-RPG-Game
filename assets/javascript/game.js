@@ -1,8 +1,6 @@
 (function ($) {
     let character;
     let game;
-    let userChoice;
-
 
     //reset character
     function resetCharacter() {
@@ -75,9 +73,12 @@
 
     //disappear show charcter
     function disappear() {
-        $(".choice").empty()
+        $("#character").empty()
+        $("#defender").empty()
+        $("#enemies").empty()
         $("#characters").empty()
-
+        $(".defend").empty()
+        $(".choose").show()
     }
 
     //show enemy charcter
@@ -104,44 +105,66 @@
     initial()
 
     //select attack enemy
-    $(".enemyChar").on("click.enemySelect",function() {
-        let userSelectedEnemy = $(this).attr('data-name')
-        game.userChoiceEnemy = character[userSelectedEnemy]
-        $("#defender").append(this)
-        $("#attack").show()
-        $("#enemies").off('click.enemySelect')
-    })
+    function attackEnemy() {
+        $(".enemyChar").on("click.enemySelect",function() {
+            let userSelectedEnemy = $(this).attr('data-name')
+            game.userChoiceEnemy = character[userSelectedEnemy]
+            $("#defender").append(this)
+            $("#attack").show()
+            $("#enemies").off('click.enemySelect')
+        })
+    }
 
     //attack
     $("#attack").on("click.attack", function() {
         game.numberClick++
         game.userChoiceEnemy.health -= game.userChoiceChar.attack * game.numberClick
         game.userChoiceChar.health -= game.userChoiceEnemy.enemyAttackBack
-
         $("#")
     })
 
-    
-
-    //defend
-    function defend() {
-
-    }
-
     //checkHealth
-    function isDead(char) {
+    let isDead = function(char) {
         if (char.health <= 0) return true
         else return false
     }
+
     //check enemy left
     function isGameWon() {
         if (game.enemiesLeft === 0) return true
         else return false
     }
 
-    //remove enemy
+    //attack stat
+    function attackStart() {
+        if (isDead(game.userChoiceChar)) {
+            alert("You were defeated by " + game.userChoiceEnemy + ". Click reset to play again.")
+            $("#character").empty()
+            $("#reset").show()
+        } else if (isDead(game.userChoiceEnemy)) {
+            game.enemiesLeft--
+            $("#defender").empty()
+
+            if (isGameWon()) {
+                alert("You win! Click reset to play again!")
+                $("#reset").show()
+            } else {
+                alert("You defeated " + game.userChoiceEnemy + "! Select another enemy to fight!")
+                // attackEnemy()
+            }
+        }
+    }
 
     //select char
+    $("#characters").on("click", ".column", function() {
+        let userSelectedChar = $(this).attr("data-name")
+        game.userChoiceChar = character[userChoiceChar]
+        $("#character").append(this)
+        showEnemy(userSelectedChar)
+        $(".choose").hide()
+        game.enemiesLeft = Object.keys(character).length - 1
+        // attackEnemy()
+    })
 
 
 
