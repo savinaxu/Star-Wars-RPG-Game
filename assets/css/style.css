@@ -21,7 +21,6 @@ h2 {
 
 .column {
     display: inline-block;
-    width: 20%;
     margin: 10px;
     padding: 10px;
     border: 3px solid green;
@@ -37,6 +36,11 @@ h2 {
     color: white;
 }
 
+.defenderChar {
+    background-color: #ff3;
+    color: black;
+}
+
 img {
     width: 138px;
     height: 138px;
@@ -46,14 +50,14 @@ img {
 }
 
 .yourCharacter {
-    width: 23%;
     display: inline-block;
-    margin-right: 20px;
+    margin-right: 50px;
+    float: left;
 }
 
 .enemy {
-    width: 73%;
     display: inline-block;
+    float: left;
 }
 
 .select {
@@ -70,9 +74,13 @@ p {
 }
 
 #attack {
-    visibility: hidden;
+    display: none;
 }
 
 #reset {
-    visibility: hidden;
+    display: none;
+}
+
+.clearfix {
+    clear: both;
 }

@@ -106,22 +106,14 @@
 
     //select attack enemy
     function attackEnemy() {
-        $(".enemyChar").on("click.enemySelect",function() {
+        $(".enemyChar").on("click",function() {
             let userSelectedEnemy = $(this).attr('data-name')
             game.userChoiceEnemy = character[userSelectedEnemy]
             $("#defender").append(this)
             $("#attack").show()
-            $("#enemies").off('click.enemySelect')
+            $("#enemies").off('click')
         })
     }
-
-    //attack
-    $("#attack").on("click.attack", function() {
-        game.numberClick++
-        game.userChoiceEnemy.health -= game.userChoiceChar.attack * game.numberClick
-        game.userChoiceChar.health -= game.userChoiceEnemy.enemyAttackBack
-        $("#")
-    })
 
     //checkHealth
     let isDead = function(char) {
@@ -138,8 +130,7 @@
     //attack stat
     function attackStart() {
         if (isDead(game.userChoiceChar)) {
-            alert("You were defeated by " + game.userChoiceEnemy + ". Click reset to play again.")
-            $("#character").empty()
+            alert("You were defeated by " + game.userChoiceEnemy.name + ". Click reset to play again.")
             $("#reset").show()
         } else if (isDead(game.userChoiceEnemy)) {
             game.enemiesLeft--
@@ -149,21 +140,42 @@
                 alert("You win! Click reset to play again!")
                 $("#reset").show()
             } else {
-                alert("You defeated " + game.userChoiceEnemy + "! Select another enemy to fight!")
-                // attackEnemy()
+                alert("You defeated " + game.userChoiceEnemy.name + "! Select another enemy to fight!")
+                attackEnemy()
             }
         }
     }
 
+    //attack
+    $("#attack").on("click", function() {
+        game.numberClick++
+        game.userChoiceEnemy.health -= game.userChoiceChar.attack * game.numberClick
+        game.userChoiceChar.health -= game.userChoiceEnemy.enemyAttackBack
+        $('#character p').text(game.userChoiceChar.health)
+        $('#defender p').text(game.userChoiceEnemy.health)
+        attackStart()
+
+        if (isDead(game.userChoiceEnemy) || isDead(game.userChoiceChar)) {
+            $(this).hide()
+        }
+    })
+
+    //reset
+    $("#reset").on("click", function() {
+        disappear()
+        $(this).hide()
+        initial()
+    })
+
     //select char
     $("#characters").on("click", ".column", function() {
         let userSelectedChar = $(this).attr("data-name")
-        game.userChoiceChar = character[userChoiceChar]
+        game.userChoiceChar = character[userSelectedChar]
         $("#character").append(this)
         showEnemy(userSelectedChar)
         $(".choose").hide()
         game.enemiesLeft = Object.keys(character).length - 1
-        // attackEnemy()
+        attackEnemy()
     })
 
 
