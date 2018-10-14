@@ -1,5 +1,7 @@
 # Star-Wars-RPG-Game
 
+link: https://savinaxu.github.io/Star-Wars-RPG-Game/
+
 
 1. Here's how the app works:
 
