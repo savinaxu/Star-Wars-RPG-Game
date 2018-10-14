@@ -7,6 +7,12 @@ body {
     margin: 0 auto;
 }
 
+.ball {
+    position: absolute;
+    border-radius: 100%;
+    opacity: 0.7;
+}
+
 h1 {
     font-family: 'Orbitron', sans-serif;
     width: 100%;
